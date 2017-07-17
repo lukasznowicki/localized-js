@@ -3,7 +3,7 @@
 Plugin Name: Localized JS
 Description: This is just an example on using localized strings in javascript files.
     Version: 0.1.0
-     Author: £ukasz Nowicki
+     Author: ≈Åukasz Nowicki
  Author URI: http://lukasznowicki.info/
 Text Domain: localizedjs
 */
@@ -14,9 +14,14 @@ if ( !is_admin() ) { return; }
 class Plugin {
 
 	function __construct() {
+		add_action( 'init', [ $this, 'init' ] );
 		add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 		add_action( 'wp_ajax_drawanswer', [ $this, 'drawanswer' ] );
+	}
+
+	function init() {
+		load_plugin_textdomain( 'localizedjs', false, dirname( plugin_basename( __FILE__ ) ) . \DIRECTORY_SEPARATOR . 'languages' . \DIRECTORY_SEPARATOR );
 	}
 
 	function admin_menu() {
@@ -34,7 +39,7 @@ class Plugin {
 	<div class="wrap">
 		<h1><?php echo __( 'LocalizedJS', 'localizedjs' ); ?></h1>
 		<div id="localizedjs">
-			<a href="#" id="localizedjs_click">Draw the answer</a>
+			<a href="#" id="localizedjs_click"><?php echo __( 'Draw the answer', 'localizedjs' ); ?></a>
 			<div id="answer"></div>
 		</div>
 	</div>
